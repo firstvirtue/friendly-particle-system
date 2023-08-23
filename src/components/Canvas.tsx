@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Particle } from './Particle';
+import { ParticleSystem } from './ParticleSystem'
 
 export default function Canv() {
   return (
@@ -14,7 +15,7 @@ export default function Canv() {
       }}
      >
         <ambientLight />
-        <Particle />
+        <ParticleSystem />
      </Canvas>
   );
 }

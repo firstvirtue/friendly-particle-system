@@ -6,8 +6,8 @@ export function Particle(props) {
 
   // let velocity = 0.002;
   // const acceleration = 0.001;
-  const velocity = useRef(new Vector3(0.002, 0.002, 0));
-  const acceleration = useRef(new Vector3(0.001, -0.001, 0));
+  const velocity = useRef(new Vector3(0.00, 0.00, 0));
+  const acceleration = useRef(new Vector3(-0.001 * Math.random() + 0.001, -0.001 * Math.random() + 0.001, 0));
 
   const meshRef = useRef()
   const [hovered, setHover] = useState(false)
