@@ -1,19 +1,24 @@
+import React, { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber"
 import { Particle } from "./Particle"
 
-export function ParticleSystem() {
+export function ParticleSystem(props) {
+  const { position } = props;
 
-  const particles = Array.from(Array(100).keys())
+  const particles = Array.from(Array(300).keys())
 
   useFrame((state, delta) => {
     // console.log(particles)
   })
 
+  useEffect(() => {
+    
+  }, [position])
+
   return (
     <>
-    
       { particles.map(x => {
-        return <Particle />
+        return <Particle position={position} />
       }) }
     </>
   )
