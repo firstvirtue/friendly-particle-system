@@ -2,17 +2,47 @@ import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Particle } from './Particle';
 import { ParticleSystem } from './ParticleSystem'
+import { Vector3 } from 'three';
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+
+    let id = setInterval(tick, delay);
+    return () => clearInterval(id);
+  }, [delay]);
+}
 
 export default function Canv() {
   const ref = useRef()
+  const savedCallback = useRef();
   const [mouse, setMouse] = useState({x: 0, y: 0})
   
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
+  const gravity = useRef(new Vector3(0, -2, 0));
+  const wind = useRef(new Vector3(1.5, 0.8, 0));
+  const [force, setForce] = useState(new Vector3())
+
   useEffect(() => {
-    
-  }, [height])
+    // console.log(force, gravity.current, wind.current)
+
+    setForce(force.addVectors(force, wind.current))
+    setForce(force.addVectors(force, gravity.current))
+  }, [])
+
+  useEffect(() => {
+    console.log('force: ', force)
+  }, [force])
 
   const z = 600;
   const fov = 2 * Math.atan((height/2)/z) * (180 / Math.PI)
@@ -34,11 +64,16 @@ export default function Canv() {
           x: event.clientX - (rect.width / 2),
           y: -event.clientY + (rect.height / 2),
         })
-        
+
+        // setForce(new Vector3())
+        // wind.current = new Vector3(1 * Math.random() + 0.5, 1 * Math.random() + 0.5, 0);
+        // setForce(force.addVectors(force, wind.current))
+        // setForce(force.addVectors(force, gravity.current))
       }}
+      style={{background: 'white'}}
      >
         <ambientLight />
-        <ParticleSystem position={mouse}/>
+        <ParticleSystem position={mouse} force={force}/>
      </Canvas>
   );
 }
