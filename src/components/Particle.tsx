@@ -8,10 +8,10 @@ export function Particle(props) {
   // let velocity = 0.002;
   // const acceleration = 0.001;
   let velocity = useRef(new Vector3(0, 0, 0));
-  let acceleration = useRef(new Vector3(0.002 * Math.random() - 0.002 / 2, 0.002 * Math.random() - 0.002 / 2, 0));
+  let acceleration = useRef(new Vector3(0.2 * Math.random() - 0.2 / 2, 0.2 * Math.random() - 0.2 / 2, 0));
   
   // const force = useRef(new Vector3(0, 0, 0));
-  const gravity = useRef(new Vector3(0, -0.004, 0));
+  const gravity = useRef(new Vector3(0, -0.4, 0));
   const mass = 10 * Math.random() + 10
 
   const meshRef = useRef()
@@ -19,10 +19,10 @@ export function Particle(props) {
   const [active, setActive] = useState(false)
 
   useEffect(() => {
-    console.log(position)
+    // console.log(position)
 
     velocity.current = (new Vector3(0, 0, 0));
-    acceleration.current = (new Vector3(0.002 * Math.random() - 0.002 / 2, 0.002 * Math.random() - 0.002 / 2, 0));
+    acceleration.current = (new Vector3(0.2 * Math.random() - 0.2 / 2, 0.2 * Math.random() - 0.2 / 2, 0));
 
     meshRef.current.position.x = position.x;
     meshRef.current.position.y = position.y;
@@ -34,11 +34,9 @@ export function Particle(props) {
     let force = gravity.current
 
     // f = m * a;
-
     acceleration.current.x += force.x / mass;
     acceleration.current.y += force.y / mass;
     acceleration.current.z += force.z / mass;
-
 
     velocity.current.x += acceleration.current.x;
     velocity.current.y += acceleration.current.y;
@@ -60,7 +58,7 @@ export function Particle(props) {
       // onPointerOut={(event) => setHover(false)}
       >
 
-      <sphereGeometry args={[0.05, 16, 16]} />
+      <sphereGeometry args={[1, 16, 16]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
   )

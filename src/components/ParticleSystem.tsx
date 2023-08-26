@@ -12,7 +12,7 @@ export function ParticleSystem(props) {
   })
 
   useEffect(() => {
-    
+    console.log(position)
   }, [position])
 
   return (
