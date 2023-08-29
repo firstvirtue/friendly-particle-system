@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Particle } from './Particle';
 import { ParticleSystem } from './ParticleSystem'
+import { VehicleSystem } from './VehicleSystem'
 import { Vector3 } from 'three';
 
 function useInterval(callback, delay) {
@@ -70,10 +70,18 @@ export default function Canv() {
         // setForce(force.addVectors(force, wind.current))
         // setForce(force.addVectors(force, gravity.current))
       }}
+      onMouseMove={ event => {
+        var rect = ref.current?.getBoundingClientRect();
+        setMouse({
+          x: event.clientX - (rect.width / 2),
+          y: -event.clientY + (rect.height / 2),
+        })
+      }}
       style={{background: 'white'}}
      >
         <ambientLight />
-        <ParticleSystem position={mouse} force={force}/>
+        {/* <ParticleSystem position={mouse} force={force} /> */}
+        <VehicleSystem position={mouse} force={force} />
      </Canvas>
   );
 }
