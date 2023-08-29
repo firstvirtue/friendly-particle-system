@@ -3,23 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { ParticleSystem } from './ParticleSystem'
 import { VehicleSystem } from './VehicleSystem'
 import { Vector3 } from 'three';
-
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-
-    let id = setInterval(tick, delay);
-    return () => clearInterval(id);
-  }, [delay]);
-}
+import { Perf } from 'r3f-perf'
 
 export default function Canv() {
   const ref = useRef()
@@ -33,6 +17,8 @@ export default function Canv() {
   const wind = useRef(new Vector3(1.5, 0.8, 0));
   const [force, setForce] = useState(new Vector3())
 
+  const pos = useRef();
+
   useEffect(() => {
     // console.log(force, gravity.current, wind.current)
 
@@ -41,7 +27,7 @@ export default function Canv() {
   }, [])
 
   useEffect(() => {
-    console.log('force: ', force)
+    // console.log('force: ', force)
   }, [force])
 
   const z = 600;
@@ -72,13 +58,14 @@ export default function Canv() {
       }}
       onMouseMove={ event => {
         var rect = ref.current?.getBoundingClientRect();
-        setMouse({
-          x: event.clientX - (rect.width / 2),
-          y: -event.clientY + (rect.height / 2),
-        })
+        // setMouse({
+        //   x: event.clientX - (rect.width / 2),
+        //   y: -event.clientY + (rect.height / 2),
+        // })
       }}
       style={{background: 'white'}}
      >
+      <Perf />
         <ambientLight />
         {/* <ParticleSystem position={mouse} force={force} /> */}
         <VehicleSystem position={mouse} force={force} />

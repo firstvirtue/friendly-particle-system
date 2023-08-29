@@ -7,7 +7,7 @@ export function Vehicle(props) {
   
   // let velocity = 0.002;
   // const acceleration = 0.001;
-  const size = useRef(2 * Math.random() + 0.5)
+  const size = useRef(7 * Math.random() + 0.5)
   let velocity = useRef(new Vector3(3 * Math.random() - 3 / 3, 3 * Math.random() - 3 / 3, 0));
   let acceleration = useRef(new Vector3());
   // meshRef.current.position.x = 0;
