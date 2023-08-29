@@ -5,7 +5,7 @@ import { Particle } from "./Particle"
 export function ParticleSystem(props) {
   const { position, force } = props;
 
-  const particles = Array.from(Array(10).keys())
+  const particles = Array.from(Array(510).keys())
 
   useFrame((state, delta) => {
     // console.log(particles)
