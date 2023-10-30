@@ -5,6 +5,7 @@ import "./style.css";
 
 import Canv from './components/Canvas'
 import { ExpandTransition } from "./components/visual/ExpandTransition";
+import { Scene } from './components/visual/ShaderCanvas';
 
 
 
@@ -15,7 +16,7 @@ function App() {
       
       {/* <Canv></Canv> */}
       <ExpandTransition />
-
+      <Scene />
 
     </div>
   );
