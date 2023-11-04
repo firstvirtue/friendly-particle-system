@@ -9,11 +9,16 @@ varying float v_test;
 uniform vec3 u_colorA;
 uniform vec3 u_colorB;
 
+varying highp vec2 vTextureCoord;
+uniform sampler2D tex;
+
 void main() {
   
   vec3 color = mix(u_colorB, u_colorA, vUv.x);
 
-  gl_FragColor = vec4(color,1.0);
+  // vec3 color = texture2D(tex, vUv).rgb;
+
+  gl_FragColor = vec4(color, 1.0);
 }
 
 `

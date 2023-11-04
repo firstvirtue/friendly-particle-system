@@ -1,10 +1,13 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import { Color } from "three";
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
+import { useTexture } from '@react-three/drei';
 
 import fragmentShader from `./fragmentShader`;
 import vertexShader from `./vertexShader`;
+
 
 const Cube = () => {
   const mesh = useRef();
@@ -40,14 +43,19 @@ const Cube = () => {
 };
 
 const BasicParticles = () => {
+
+  const texture = useLoader(TextureLoader, '/assets/img/lush_value_01@3x.jpeg')
+
+  // const texture = useTexture('/assets/img/lush_value_01@3x.jpeg')
+  console.log('texture:: ', texture)
+
   const points = useRef()
   const uniform = useMemo(
     () => ({
-      u_time: {
-        value: 0.0,
-      },
+      u_time: { value: 0.0 },
       u_colorA: { value: new Color("#FFFFFF") },
       u_colorB: { value: new Color("#FEB3D9") },
+      tex: { type: 't', value: texture },
     }),
     []
   )
@@ -59,7 +67,7 @@ const BasicParticles = () => {
     // console.log(mesh?.current?.geometry.attributes)
   });
 
-  const count = 2000;
+  const count = 20000;
 
   const particlesPosition = useMemo(() => {
     // Create a Float32Array of count*3 length
@@ -81,6 +89,7 @@ const BasicParticles = () => {
   }, [count]);
 
   return (
+    <>
     <points ref={points}>
       <bufferGeometry>
         <bufferAttribute
@@ -98,7 +107,21 @@ const BasicParticles = () => {
         
         uniforms={uniform}
       />
+      
     </points>
+
+    <mesh>
+      <planeGeometry args={[1, 1, 32, 32]} />
+      <shaderMaterial
+        depthWrite={false}
+        fragmentShader={fragmentShader}
+        vertexShader={vertexShader}
+        // wireframe
+        
+        uniforms={uniform}
+      />
+    </mesh>
+    </>
   )
 }
 
