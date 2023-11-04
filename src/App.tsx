@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       
       {/* <Canv></Canv> */}
-      <ExpandTransition />
+      {/* <ExpandTransition /> */}
       <Scene />
 
     </div>

@@ -22,12 +22,13 @@ const Cube = () => {
   useFrame((state) => {
     const { clock } = state;
     mesh.current.material.uniforms.u_time.value = clock.getElapsedTime();
+
+    // console.log(mesh?.current?.geometry.attributes)
   });
 
   return (
     <mesh ref={mesh} position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={1.5}>
       <planeGeometry args={[1, 1, 32, 32]} />
-      {/* <meshBasicMaterial color={0xffffff} /> */}
       <shaderMaterial
         fragmentShader={fragmentShader}
         vertexShader={vertexShader}
@@ -38,10 +39,75 @@ const Cube = () => {
   );
 };
 
+const BasicParticles = () => {
+  const points = useRef()
+  const uniform = useMemo(
+    () => ({
+      u_time: {
+        value: 0.0,
+      },
+      u_colorA: { value: new Color("#FFFFFF") },
+      u_colorB: { value: new Color("#FEB3D9") },
+    }),
+    []
+  )
+
+  useFrame((state) => {
+    const { clock } = state;
+    points.current.material.uniforms.u_time.value = clock.getElapsedTime();
+
+    // console.log(mesh?.current?.geometry.attributes)
+  });
+
+  const count = 2000;
+
+  const particlesPosition = useMemo(() => {
+    // Create a Float32Array of count*3 length
+    // -> we are going to generate the x, y, and z values for 2000 particles
+    // -> thus we need 6000 items in this array
+    const positions = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      // Generate random values for x, y, and z on every loop
+      let x = (Math.random() - 0.5) * 2;
+      let y = (Math.random() - 0.5) * 2;
+      let z = (Math.random() - 0.5) * 2;
+
+      // We add the 3 values to the attribute array for every loop
+      positions.set([x, y, z], i * 3);
+    }
+
+    return positions;
+  }, [count]);
+
+  return (
+    <points ref={points}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={particlesPosition.length / 3}
+          array={particlesPosition}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <shaderMaterial
+        depthWrite={false}
+        fragmentShader={fragmentShader}
+        vertexShader={vertexShader}
+        // wireframe
+        
+        uniforms={uniform}
+      />
+    </points>
+  )
+}
+
+
 export const Scene = () => {
   return (
     <Canvas camera={{ position: [1.0, 1.0, 1.0] }}>
-      <Cube />
+      {/* <Cube /> */}
+      <BasicParticles />
       <OrbitControls />
     </Canvas>
   );
