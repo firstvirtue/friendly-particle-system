@@ -5,8 +5,11 @@ import { Color } from "three";
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { useTexture } from '@react-three/drei';
 
-import fragmentShader from `./fragmentShader`;
-import vertexShader from `./vertexShader`;
+// import fragmentShader from `./fragmentShader`;
+// import vertexShader from `./vertexShader`;
+
+import fragmentShader from `./coordFragmentShader`;
+import vertexShader from `./coordVertexShader`;
 
 
 const Cube = () => {
