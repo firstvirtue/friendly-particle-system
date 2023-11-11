@@ -4,6 +4,7 @@ import { useMemo, useRef } from 'react';
 import { Color } from "three";
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { useTexture } from '@react-three/drei';
+import { Vector3 } from "three";
 
 // import fragmentShader from `./fragmentShader`;
 // import vertexShader from `./vertexShader`;
@@ -47,28 +48,11 @@ const Cube = () => {
 
 const BasicParticles = () => {
 
-  const texture = useLoader(TextureLoader, '/assets/img/lush_value_01@3x.jpeg')
+  // const texture = useLoader(TextureLoader, '/assets/img/lush_value_01@3x.jpeg')
+  const texture = useLoader(TextureLoader, '/assets/img/screenshot-0.png')
 
   // const texture = useTexture('/assets/img/lush_value_01@3x.jpeg')
   console.log('texture:: ', texture)
-
-  const points = useRef()
-  const uniform = useMemo(
-    () => ({
-      u_time: { value: 0.0 },
-      u_colorA: { value: new Color("#FFFFFF") },
-      u_colorB: { value: new Color("#FEB3D9") },
-      tex: { type: 't', value: texture },
-    }),
-    []
-  )
-
-  useFrame((state) => {
-    const { clock } = state;
-    points.current.material.uniforms.u_time.value = clock.getElapsedTime();
-
-    // console.log(mesh?.current?.geometry.attributes)
-  });
 
   const count = 20000;
 
@@ -80,9 +64,10 @@ const BasicParticles = () => {
 
     for (let i = 0; i < count; i++) {
       // Generate random values for x, y, and z on every loop
-      let x = (Math.random() - 0.5) * 2;
-      let y = (Math.random() - 0.5) * 2;
-      let z = (Math.random() - 0.5) * 2;
+      let x = (Math.random() - 0.5) * 1;
+      let y = (Math.random() - 0.5) * 1;
+      let z = (Math.random() - 0.5) * 1;
+      // let z = 0;
 
       // We add the 3 values to the attribute array for every loop
       positions.set([x, y, z], i * 3);
@@ -91,15 +76,39 @@ const BasicParticles = () => {
     return positions;
   }, [count]);
 
+  console.log(particlesPosition)
+
+  const ptsRef = useRef()
+  const uniform = useMemo(
+    () => ({
+      u_time: { value: 0.0 },
+      u_colorA: { value: new Color("#FFFFFF") },
+      u_colorB: { value: new Color("#FEB3D9") },
+      tex: { value: texture },
+      diffuse: { value: new Vector3(0.5, 0.5, 0.5) }
+    }),
+    []
+  )
+
+  useFrame((state) => {
+    const { clock } = state;
+    ptsRef.current.material.uniforms.u_time.value = clock.getElapsedTime();
+
+    // console.log(mesh?.current?.geometry.attributes)
+  });
+
+  
+
   return (
     <>
-    <points ref={points}>
+    <points ref={ptsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
           count={particlesPosition.length / 3}
           array={particlesPosition}
           itemSize={3}
+          
         />
       </bufferGeometry>
       <shaderMaterial
@@ -107,23 +116,22 @@ const BasicParticles = () => {
         fragmentShader={fragmentShader}
         vertexShader={vertexShader}
         // wireframe
-        
         uniforms={uniform}
       />
       
     </points>
 
-    <mesh>
+    {/* <mesh>
       <planeGeometry args={[1, 1, 32, 32]} />
       <shaderMaterial
         depthWrite={false}
         fragmentShader={fragmentShader}
         vertexShader={vertexShader}
-        // wireframe
+        wireframe
         
         uniforms={uniform}
       />
-    </mesh>
+    </mesh> */}
     </>
   )
 }

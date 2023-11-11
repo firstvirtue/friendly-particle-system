@@ -1,8 +1,11 @@
 var fragCode = `
+varying vec2 vPUv;
 varying vec2 vUv;
 uniform vec3 diffuse;
 uniform float opacity;
 uniform sampler2D tex;
+
+varying vec2 vPosColor;
 
 // #include &lt;common&gt;
 // #include &lt;color_pars_fragment&gt;
@@ -21,9 +24,11 @@ vec3 colorA = vec3(0.912,0.191,0.652);
 
 // #include &lt;logdepthbuf_fragment&gt;
 
-vec4 mapTexel = texture2D( tex, vUv );
-// diffuseColor *= mapTexelToLinear( mapTexel );
+vec2 puv = vPUv;
 
+// vec4 mapTexel = texture2D( tex, vUv );
+vec4 mapTexel = texture2D( tex, vPosColor );
+// diffuseColor *= mapTexelToLinear( mapTexel );
 
 // #include &lt;color_fragment&gt;
 // #include &lt;alphatest_fragment&gt;
@@ -32,6 +37,7 @@ outgoingLight = diffuseColor.rgb;
 gl_FragColor = vec4( outgoingLight, diffuseColor.a );
 
 vec3 color = mapTexel.rgb;
+// color = vec3(vPosColor, 0.1);
 outgoingLight = color.rgb;
 gl_FragColor = vec4( outgoingLight, 1.0 );
 
