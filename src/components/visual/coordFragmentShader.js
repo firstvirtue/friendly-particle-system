@@ -10,12 +10,8 @@ varying vec2 vPosColor;
 // #include &lt;common&gt;
 // #include &lt;color_pars_fragment&gt;
 // #include &lt;map_particle_pars_fragment&gt;
-// #include &lt;fog_pars_fragment&gt;
-// #include &lt;logdepthbuf_pars_fragment&gt;
-// #include &lt;clipping_planes_pars_fragment&gt;
 
 void main() {
-
 // #include &lt;clipping_planes_fragment&gt;
 
 vec3 outgoingLight = vec3( 0.0 );
@@ -37,7 +33,6 @@ outgoingLight = diffuseColor.rgb;
 gl_FragColor = vec4( outgoingLight, diffuseColor.a );
 
 vec3 color = mapTexel.rgb;
-// color = vec3(vPosColor, 0.1);
 outgoingLight = color.rgb;
 gl_FragColor = vec4( outgoingLight, 1.0 );
 

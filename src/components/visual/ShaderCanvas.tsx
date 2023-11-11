@@ -55,6 +55,7 @@ const BasicParticles = () => {
   console.log('texture:: ', texture)
 
   const count = 20000;
+  const radius = 2;
 
   const particlesPosition = useMemo(() => {
     // Create a Float32Array of count*3 length
@@ -66,7 +67,7 @@ const BasicParticles = () => {
       // Generate random values for x, y, and z on every loop
       let x = (Math.random() - 0.5) * 1;
       let y = (Math.random() - 0.5) * 1;
-      let z = (Math.random() - 0.5) * 1;
+      let z = (Math.random() - 0.5) * 0.3;
       // let z = 0;
 
       // We add the 3 values to the attribute array for every loop
@@ -81,7 +82,8 @@ const BasicParticles = () => {
   const ptsRef = useRef()
   const uniform = useMemo(
     () => ({
-      u_time: { value: 0.0 },
+      uTime: { value: 0.0 },
+      uRadius: { value: radius },
       u_colorA: { value: new Color("#FFFFFF") },
       u_colorB: { value: new Color("#FEB3D9") },
       tex: { value: texture },
@@ -92,7 +94,7 @@ const BasicParticles = () => {
 
   useFrame((state) => {
     const { clock } = state;
-    ptsRef.current.material.uniforms.u_time.value = clock.getElapsedTime();
+    ptsRef.current.material.uniforms.uTime.value = clock.getElapsedTime();
 
     // console.log(mesh?.current?.geometry.attributes)
   });
@@ -108,7 +110,6 @@ const BasicParticles = () => {
           count={particlesPosition.length / 3}
           array={particlesPosition}
           itemSize={3}
-          
         />
       </bufferGeometry>
       <shaderMaterial
@@ -139,7 +140,7 @@ const BasicParticles = () => {
 
 export const Scene = () => {
   return (
-    <Canvas camera={{ position: [1.0, 1.0, 1.0] }}>
+    <Canvas camera={{ position: [0.0, 0.0, 1.0] }}>
       {/* <Cube /> */}
       <BasicParticles />
       <OrbitControls />
