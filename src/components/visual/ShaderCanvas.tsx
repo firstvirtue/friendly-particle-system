@@ -141,6 +141,7 @@ const BasicParticles = () => {
 export const Scene = () => {
   return (
     <Canvas camera={{ position: [0.0, 0.0, 1.0] }}>
+      <color attach="background" args={["white"]} />
       {/* <Cube /> */}
       <BasicParticles />
       <OrbitControls />

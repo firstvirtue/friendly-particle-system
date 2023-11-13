@@ -53,7 +53,7 @@ void main() {
 
     gl_Position = projectedPosition;
     gl_PointSize = 2.0;
-    gl_PointSize *= (1.0 / - viewPosition.z);
+    gl_PointSize *= (3.0 / - viewPosition.z);
     
     // #ifdef USE_SIZEATTENUATION
         // bool isPerspective = isPerspectiveMatrix( projectionMatrix );
