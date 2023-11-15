@@ -3,7 +3,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { ParticleSystem } from './ParticleSystem'
 import { VehicleSystem } from './VehicleSystem'
 import { Vector3 } from 'three';
-import { Perf } from 'r3f-perf'
+import { Perf } from 'r3f-perf';
+import { OrbitControls } from "@react-three/drei";
 
 export default function Canv() {
   const ref = useRef()
@@ -69,6 +70,7 @@ export default function Canv() {
         <ambientLight />
         {/* <ParticleSystem position={mouse} force={force} /> */}
         <VehicleSystem position={mouse} force={force} />
+        <OrbitControls />
      </Canvas>
   );
 }

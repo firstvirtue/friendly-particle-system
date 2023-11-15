@@ -99,8 +99,6 @@ const BasicParticles = () => {
     // console.log(mesh?.current?.geometry.attributes)
   });
 
-  
-
   return (
     <>
     <points ref={ptsRef}>

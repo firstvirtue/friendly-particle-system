@@ -8,14 +8,18 @@ import { ExpandTransition } from "./components/visual/ExpandTransition";
 import { Scene } from './components/visual/ShaderCanvas';
 
 
-
 function App() {
 
   return (
     <div className="App">
       
+      {/* vehicles particles */}
       {/* <Canv></Canv> */}
+
+      {/* 이미지 확장 모션 */}
       {/* <ExpandTransition /> */}
+
+      {/* 이미지 파티클 */}
       <Scene />
 
     </div>
