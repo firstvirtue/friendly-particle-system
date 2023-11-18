@@ -6,6 +6,7 @@ import "./style.css";
 import Canv from './components/Canvas'
 import { ExpandTransition } from "./components/visual/ExpandTransition";
 import { Scene } from './components/visual/ShaderCanvas';
+import FBOScene from './components/fbo/FBOCanvas';
 
 
 function App() {
@@ -20,8 +21,10 @@ function App() {
       {/* <ExpandTransition /> */}
 
       {/* 이미지 파티클 */}
-      <Scene />
+      {/* <Scene /> */}
 
+      {/* FBO */}
+      <FBOScene />
     </div>
   );
 }
