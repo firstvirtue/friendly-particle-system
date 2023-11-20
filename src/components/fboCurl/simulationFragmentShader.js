@@ -17,8 +17,8 @@ void main() {
   curlPos = curlNoise(curlPos * uFrequency + uTime * 0.1);
   curlPos += curlNoise(curlPos * uFrequency * 2.0) * 0.5;
 
-  // gl_FragColor = vec4(mix(pos, curlPos, sin(uTime)), 1.0);
-  gl_FragColor = vec4(pos, 1.0);
+  gl_FragColor = vec4(mix(pos, curlPos, sin(uTime)), 1.0);
+  // gl_FragColor = vec4(pos, 1.0);
 }
 `
 

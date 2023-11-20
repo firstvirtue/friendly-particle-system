@@ -6,7 +6,8 @@ import "./style.css";
 import Canv from './components/Canvas'
 import { ExpandTransition } from "./components/visual/ExpandTransition";
 import { Scene } from './components/visual/ShaderCanvas';
-import FBOScene from './components/fbo/FBOCanvas';
+// import FBOScene from './components/fboCurl/FBOCanvas';
+import FBOScene from './components/fboBox/FBOCanvas';
 
 
 function App() {
