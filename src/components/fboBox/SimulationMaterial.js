@@ -9,7 +9,7 @@ const getRandomDataSphere = (width, height) => {
   for (let i = 0; i < length; i++) {
     const stride = i * 4;
 
-    const distance = Math.sqrt((Math.random())) * 2.0;
+    const distance = Math.sqrt((Math.random())) * 1.0;
     const theta = THREE.MathUtils.randFloatSpread(360);
     const phi = THREE.MathUtils.randFloatSpread(360);
 
@@ -29,9 +29,9 @@ const getRandomDataBox = (width, height) => {
   for (let i = 0; i < data.length; i++) {
     const stride = i * 4;
 
-    data[stride] = (Math.random() - 0.5) * 2.0;
-    data[stride + 1] = (Math.random() - 0.5) * 2.0;
-    data[stride + 2] = (Math.random() - 0.5) * 2.0;
+    data[stride] = (Math.random() - 0.5) * 1.0;
+    data[stride + 1] = (Math.random() - 0.5) * 1.0;
+    data[stride + 2] = (Math.random() - 0.5) * 0.2;
     data[stride + 3] = 1.0;
   }
 

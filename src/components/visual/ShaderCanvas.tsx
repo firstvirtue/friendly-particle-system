@@ -5,6 +5,7 @@ import { Color } from "three";
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { useTexture } from '@react-three/drei';
 import { Vector3 } from "three";
+import * as THREE from "three";
 
 // import fragmentShader from `./fragmentShader`;
 // import vertexShader from `./vertexShader`;

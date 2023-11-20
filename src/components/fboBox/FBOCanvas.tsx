@@ -1,9 +1,10 @@
 import { OrbitControls, useFBO } from "@react-three/drei";
-import { Canvas, useFrame, extend, createPortal } from "@react-three/fiber";
+import { Canvas, useFrame, extend, createPortal, useLoader } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 import SimulationMaterial from './SimulationMaterial';
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
 
 import vertexShader from './vertexShader';
 import fragmentShader from './fragmentShader';
@@ -15,6 +16,8 @@ const FBOParticles = () => {
 
   const points = useRef();
   const simulationMaterialRef = useRef();
+
+  const texture = useLoader(TextureLoader, '/assets/img/screenshot-0.png')
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1)
@@ -43,9 +46,8 @@ const FBOParticles = () => {
   }, [size]);
 
   const uniforms = useMemo(() => ({
-    uPositions: {
-      value: null,
-    }
+    uPositions: { value: null, },
+    tex: { value: texture },
   }), [])
 
   useFrame((state) => {
