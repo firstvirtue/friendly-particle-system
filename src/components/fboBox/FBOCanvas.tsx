@@ -59,7 +59,6 @@ const FBOParticles = () => {
     gl.setRenderTarget(null);
 
     points.current.material.uniforms.uPositions.value = renderTarget.texture;
-
     simulationMaterialRef.current.uniforms.uTime.value = clock.elapsedTime;
   })
 
@@ -109,7 +108,7 @@ const FBOParticles = () => {
 
 const FBOScene = () => {
   return (
-    <Canvas camera={{ position: [1.5, 1.5, 2.5] }}>
+    <Canvas camera={{ position: [0, 0, 1] }}>
       <ambientLight intensity={0.5} />
       <FBOParticles />
       <OrbitControls />

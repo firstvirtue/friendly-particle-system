@@ -8,7 +8,8 @@ uniform float uFrequency;
 varying vec2 vUv;
 
 void main() {
-  float time = abs(sin(uTime * 0.35));
+  // float time = abs(sin(uTime * 0.35));
+  float time = uTime * -0.35;
 
   vec3 spherePositions = texture2D(positionsA, vUv).rgb;
   vec3 boxPositions = texture2D(positionsB, vUv).rgb;
