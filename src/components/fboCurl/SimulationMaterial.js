@@ -15,9 +15,12 @@ const getRandomData = (width, height) => {
     const theta = THREE.MathUtils.randFloatSpread(360); 
     const phi = THREE.MathUtils.randFloatSpread(360); 
 
-    data[stride] =  distance * Math.sin(theta) * Math.cos(phi)
-    data[stride + 1] =  distance * Math.sin(theta) * Math.sin(phi);
-    data[stride + 2] =  distance * Math.cos(theta);
+    // data[stride] =  distance * Math.sin(theta) * Math.cos(phi)
+    // data[stride + 1] =  distance * Math.sin(theta) * Math.sin(phi);
+    // data[stride + 2] =  distance * Math.cos(theta);
+    data[stride] = (Math.random() - 0.5) * 1.0;
+    data[stride + 1] = (Math.random() - 0.5) * 1.0;
+    data[stride + 2] = (Math.random() - 0.5) * 0.2;
     data[stride + 3] =  1.0; // this value will not have any impact
   }
   
@@ -37,7 +40,8 @@ class SimulationMaterial extends THREE.ShaderMaterial {
 
     const simulationUniforms = {
       positions: { value: positionsTexture },
-      uFrequency: { value: 0.25 },
+      // uFrequency: { value: 0.25 },
+      uFrequency: { value: 0.55 },
       uTime: { value: 0 },
     };
 

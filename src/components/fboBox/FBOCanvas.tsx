@@ -95,7 +95,7 @@ const FBOParticles = () => {
         />
       </bufferGeometry>
       <shaderMaterial
-        blending={THREE.AdditiveBlending} 
+        blending={THREE.AdditiveBlending}
         depthWrite={false}
         fragmentShader={fragmentShader}
         vertexShader = {vertexShader}
@@ -109,6 +109,7 @@ const FBOParticles = () => {
 const FBOScene = () => {
   return (
     <Canvas camera={{ position: [0, 0, 1] }}>
+      {/* <color attach="background" args={["white"]} /> */}
       <ambientLight intensity={0.5} />
       <FBOParticles />
       <OrbitControls />
